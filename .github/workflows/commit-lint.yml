@@ -1,3 +1,5 @@
+# .github/workflows/commit-lint.yml
+
 name: Commit Message Lint
 
 on: push
@@ -22,6 +24,13 @@ jobs:
           import re, sys
           commit_message = '''${{ github.event.head_commit.message }}'''
           
+          # --- NUOVA LOGICA AGGIUNTA QUI ---
+          # Se il messaggio inizia con 'Merge', è un commit di merge. Saltiamo il controllo.
+          if commit_message.strip().startswith('Merge'):
+              print(f'Rilevato commit di merge, validazione saltata: \"{commit_message.strip()}\"')
+              sys.exit(0)
+          # ------------------------------------
+
           allowed_types = ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore', 'revert', 'ci']
           
           pattern_str = r'^(' + '|'.join(allowed_types) + r')(\(.+\))?!?: .+'
