@@ -18,18 +18,18 @@ jobs:
           fetch-depth: 0
 
       - name: Validate Commit Message
+        # --- MODIFICA CHIAVE QUI ---
+        # Forza l'uso della shell BASH su tutti i sistemi operativi per coerenza
+        shell: bash
         run: |
           pip install regex
           python -c "
           import re, sys
           commit_message = '''${{ github.event.head_commit.message }}'''
           
-          # --- NUOVA LOGICA AGGIUNTA QUI ---
-          # Se il messaggio inizia con 'Merge', è un commit di merge. Saltiamo il controllo.
           if commit_message.strip().startswith('Merge'):
               print(f'Rilevato commit di merge, validazione saltata: \"{commit_message.strip()}\"')
               sys.exit(0)
-          # ------------------------------------
 
           allowed_types = ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore', 'revert', 'ci']
           
