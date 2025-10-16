@@ -1,0 +1,25 @@
+[project]
+name = "runnalyst"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Giacomo Foschi",email = "giacomo.foschi3@studio.unibo.it"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "pandas (>=2.3.3,<3.0.0)",
+    "fitparse (>=1.2.0,<2.0.0)",
+    "openpyxl (>=3.1.5,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]

@@ -1,0 +1,19 @@
+# Imposta la gestione delle terminazioni di linea
+# per i file di testo in modo automatico
+* text=auto
+
+# Forza LF per i file di testo comuni
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.js text eol=lf
+*.cjs text eol=lf
+
+# non modificare i file binari
+*.fit binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary

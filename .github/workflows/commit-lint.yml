@@ -1,0 +1,39 @@
+name: Commit Message Lint
+
+on: push
+
+jobs:
+  commit-lint:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate Commit Message
+        run: |
+          pip install regex
+          python -c "
+          import re, sys
+          commit_message = '''${{ github.event.head_commit.message }}'''
+          
+          allowed_types = ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore', 'revert', 'ci']
+          
+          pattern_str = r'^(' + '|'.join(allowed_types) + r')(\(.+\))?!?: .+'
+          pattern = re.compile(pattern_str)
+          
+          if not pattern.match(commit_message):
+              print(f'ERRORE: Il messaggio del commit non è valido.')
+              print(f' -> \"{commit_message}\"')
+              print('Deve seguire lo standard Conventional Commits.')
+              print('Esempio: \"feat: Aggiunta nuova funzionalità\"')
+              print('Tipi permessi: ' + ', '.join(allowed_types))
+              sys.exit(1)
+          
+          print('Formato del messaggio di commit valido!')
+          "
