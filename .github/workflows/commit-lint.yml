@@ -2,6 +2,9 @@ name: Commit Message Lint
 
 on: push
 
+ignore-paths:
+  - 'docs/**'
+
 jobs:
   commit-lint:
     strategy:

@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+ignore-paths:
+  - 'docs/**'
+
 jobs:
   build_and_lint:
     strategy:
